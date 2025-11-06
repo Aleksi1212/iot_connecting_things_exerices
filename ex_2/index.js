@@ -35,31 +35,13 @@ client?.on("connect", async () => {
         const { name } = topics[i];
         client.subscribe(name, (err) => {
             if (!err) {
-                client.publish(name, `Hello ${name}!`);
+                // client.publish(name, `Hello ${name}!`);
                 console.log(`Connected to topic: ${name}`)
             } else {
                 console.log(`Error connecting to topic: ${name}`)
             }
         })
     }
-    // for (let i = 0; i < mqttSendTopic.length; i++) {
-    //     const topic = mqttSendTopic[i]
-    //     client.subscribe(topic, (err) => {
-    //         if (!err) {
-    //             client.publish(topic, `Hello ${topic}`)
-    //             console.log(`Connected to send topic: ${topic}`)
-    //         }
-    //     })
-    // }
-    // for (let i = 0; i < mqttReadTopic.length; i++) {
-    //     const topic = mqttReadTopic[i]
-    //     client.subscribe(topic, (err) => {
-    //         if (!err) {
-    //             // client.publish(topic, `Hello ${topic}`)
-    //             console.log(`Connected to read topic: ${topic}`)
-    //         }
-    //     })
-    // }
 })
 
 // handle instance where MQTT will not connect (error event)
