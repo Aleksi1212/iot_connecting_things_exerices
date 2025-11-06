@@ -22,8 +22,8 @@ void toggle_led(uint led, absolute_time_t start_time, uint16_t timeout)
 {
     uint64_t led_elapsed_time_ms = absolute_time_diff_us(start_time, get_absolute_time()) / 1000;
 
-    if ((led_elapsed_time_ms / timeout) % 2 == 0) gpio_put(led, true);
-    else gpio_put(led, false);
+    if ((led_elapsed_time_ms / timeout) % 2 == 0) gpio_put(led, false);
+    else gpio_put(led, true);
 }
 
 int main(void)
