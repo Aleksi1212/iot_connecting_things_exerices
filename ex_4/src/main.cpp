@@ -3,6 +3,7 @@
 #include "hardware/pwm.h"
 #include "pico/cyw43_arch.h"
 #include "wifi_info.h"
+#include "IPStack.h"
 
 #define LED_1 20
 #define LED_2 21
@@ -22,17 +23,20 @@ int main(void) {
 
     gpio_put(LED_1, true);
 
-    bool success = cyw43_arch_init() == 0;
+    auto ipstack = IPStack(SSID, PW);
+    int status = cyw43_wifi_link_status(&cyw43_state, CYW43_ITF_STA);
 
-    if (success) {
-        cyw43_arch_enable_sta_mode();
-        success = cyw43_arch_wifi_connect_timeout_ms(SSID, PW, CYW43_AUTH_WPA2_AES_PSK, 30000) == 0;
-    }
+    // bool success = cyw43_arch_init() == 0;
+
+    // if (success) {
+    //     cyw43_arch_enable_sta_mode();
+    //     success = cyw43_arch_wifi_connect_timeout_ms(SSID, PW, CYW43_AUTH_WPA2_AES_PSK, 30000) == 0;
+    // }
 
     gpio_put(LED_1, false);
 
     while (true) {
-        gpio_put(success ? LED_2 : LED_3, true);
+        gpio_put(status >= 0 ? LED_2 : LED_3, true);
         // gpio_put(led, true);
         // sleep_ms(1000);
         // gpio_put(led, false);

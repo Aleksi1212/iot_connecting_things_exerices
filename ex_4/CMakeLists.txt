@@ -33,12 +33,16 @@ pico_sdk_init()
 add_executable(${PROJECT_NAME}
     src/main.cpp
 
+    ../lib/pico-modbus/mqtt/IPStack.cpp
+    ../lib/pico-modbus/mqtt/Countdown.cpp
+
     # additional source files
 )
 
 # Add include directories
 target_include_directories(${PROJECT_NAME} PRIVATE
     ${CMAKE_SOURCE_DIR}/src
+    ../lib/pico-modbus/mqtt
 
     # additional include directories:
     # ${CMAKE_SOURCE_DIR}/dir_name

@@ -12,8 +12,11 @@ const PORT = 3000;
 const readFile = util.promisify(fs.readFile);
 const writeFile = util.promisify(fs.writeFile);
 // Create variables for MQTT use here
-const mqttBroker = "192.168.50.111"
-const mqttPort = 1883
+// const mqttBroker = "192.168.50.111"
+// const mqttPort = 1883
+
+const mqttBroker = "localhost"
+const mqttPort = 1884
 
 app.use(bodyParser.json());
 function read(filePath = './message.json') {

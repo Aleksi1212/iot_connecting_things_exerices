@@ -36,12 +36,12 @@ file (GLOB SRC_FILES
 add_executable(${PROJECT_NAME}
     ${SRC_FILES}
 
-    ${CMAKE_SOURCE_DIR}/pico-modbus/i2c/PicoI2CBus.cpp
-    ${CMAKE_SOURCE_DIR}/pico-modbus/i2c/PicoI2CDevice.cpp
-    ${CMAKE_SOURCE_DIR}/pico-modbus/display/ssd1306.cpp
-    ${CMAKE_SOURCE_DIR}/pico-modbus/display/mono_vlsb.cpp
-    ${CMAKE_SOURCE_DIR}/pico-modbus/display/mono_horiz.cpp
-    ${CMAKE_SOURCE_DIR}/pico-modbus/display/framebuf.cpp
+    ../lib/pico-modbus/i2c/PicoI2CBus.cpp
+    ../lib/pico-modbus/i2c/PicoI2CDevice.cpp
+    ../lib/pico-modbus/display/ssd1306.cpp
+    ../lib/pico-modbus/display/mono_vlsb.cpp
+    ../lib/pico-modbus/display/mono_horiz.cpp
+    ../lib/pico-modbus/display/framebuf.cpp
 
     # additional source files
 )
@@ -49,9 +49,9 @@ add_executable(${PROJECT_NAME}
 # Add include directories
 target_include_directories(${PROJECT_NAME} PRIVATE
     ${CMAKE_SOURCE_DIR}/include
-    ${CMAKE_SOURCE_DIR}/pico-modbus/i2c/
-    ${CMAKE_SOURCE_DIR}/pico-modbus/display/
-    ${CMAKE_SOURCE_DIR}/pico-modbus/display/fonts
+    ../lib/pico-modbus/i2c/
+    ../lib/pico-modbus/display/
+    ../lib/pico-modbus/display/fonts
 
     # additional include directories:
     # ${CMAKE_SOURCE_DIR}/dir_name
