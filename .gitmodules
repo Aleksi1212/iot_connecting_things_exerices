@@ -1,6 +1,6 @@
 [submodule "ex_4/paho.mqtt.embedded-c"]
-	path = ex_4/paho.mqtt.embedded-c
+	path = lib/paho.mqtt.embedded-c
 	url = https://github.com/eclipse-paho/paho.mqtt.embedded-c.git
 [submodule "ex_3/pico-modbus"]
-	path = ex_3/pico-modbus
+	path = lib/pico-modbus
 	url = https://gitlab.metropolia.fi/lansk/pico-modbus.git
