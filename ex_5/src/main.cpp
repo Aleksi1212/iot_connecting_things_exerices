@@ -50,7 +50,7 @@ int main()
 
     float low_temp_lim = 20.0f;
     float high_temp_lim = 30.0f;
-    float core_temp = read_core_temp(&adc_read);
+    float core_temp = read_core_temp(adc_read());
 
     absolute_time_t start_temp_read_time = get_absolute_time();
     uint8_t q_data;
@@ -62,7 +62,7 @@ int main()
         led3.toggle(core_temp >= high_temp_lim);
 
         if (absolute_time_diff_us(start_temp_read_time, get_absolute_time()) / 1000 >= 1000) {
-            core_temp = read_core_temp(&adc_read);
+            core_temp = read_core_temp(adc_read());
             start_temp_read_time = get_absolute_time();
             led2.toggle(!led2());
         }

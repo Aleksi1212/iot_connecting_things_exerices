@@ -1,8 +1,8 @@
 #include <utils.hpp>
 
-float read_core_temp(uint16_t (*adc_read)())
+float read_core_temp(uint16_t adc_reading)
 {
-    float voltage = adc_read() * ADC_REF / ADC_RESOLUTION;
+    float voltage = adc_reading * ADC_REF / ADC_RESOLUTION;
     return 27.0f - (voltage - V_AT_27C) / TEMP_SLOPE;
 }
 std::string char_arr_to_str(char *c_arr, size_t size)
