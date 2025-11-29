@@ -3,6 +3,15 @@
 <head>
   <meta charset="UTF-8">
   <title>MetroMessenger</title>
+  <style>
+  .fixed-button {
+      position: fixed;   /* makes it stay in place */
+      top: 10px;         /* distance from top */
+      right: 10px;        /* distance from left */
+      padding: 10px 15px;
+      cursor: pointer;
+  }
+</style>
 </head>
 <body>
 <header>
@@ -11,10 +20,16 @@
 </header>
 <main>
   <div id="message-container"></div>
+  <button class="fixed-button" onclick="clearMessages()">Clear messages</button>
 </main>
 </body>
 
 <script>
+  async function clearMessages() {
+    const res = await fetch('/clear');
+    if (res.status == 200) location.reload();
+    else alert("Error clearing messages");
+  }
   (() => {
     const msgContainer = document.getElementById('message-container');
     fetch('/messages')

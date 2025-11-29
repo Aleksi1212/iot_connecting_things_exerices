@@ -79,6 +79,16 @@ app.get('/add', (req, res) => {
     res.sendFile(path.resolve(__dirname, "./message.html"))
 })
 
+app.get('/clear', async (_, res) => {
+    try {
+        await write([]);
+        res.sendStatus(200);
+    } catch {
+        res.sendStatus(500);
+    }
+})
+
+
 //Route to show a selected message. Note, it will only show the message as text. No html needed
 app.get('/:id', async (req, res) => {
     const jsonData = await read()
@@ -128,6 +138,7 @@ app.delete('/:id', async (req, res) => {
         res.sendStatus(200);
     }
 });
+
 
 // listen to the port
 app.listen(PORT, () => {
