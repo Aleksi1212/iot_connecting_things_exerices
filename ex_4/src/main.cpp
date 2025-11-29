@@ -65,7 +65,7 @@ int main()
         if (!(*mqtt)()) continue;
 
         if (queue_try_remove(&button_q, &q_data)) {
-            mqtt->send_message(MSG_TOPIC, "{\"topic\": \"%s\", \"msg\": \"%s\"}", MSG_TOPIC, "hello from pico :)");
+            mqtt->send_message(MSG_TOPIC, "Pico says hello :)");
         }
         if (mqtt->try_get_mqtt_msg(&mqtt_payload) && strcmp(mqtt_payload.topic, LED_TOPIC) == 0) {
             handle_mqtt_message(mqtt_payload.message, led_map);
