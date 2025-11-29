@@ -88,7 +88,7 @@ void Mqtt::connect()
 
     subscirbe((char *)MSG_TOPIC);
     subscirbe((char *)LED_TOPIC);
-    subscirbe((char *)TEST_TOPIC);
+    subscirbe((char *)TEMP_TOPIC);
     // subscirbe((char *)COMMAND_TOPIC);
     // subscirbe((char *)RESPONSE_TOPIC);
     // subscirbe((char *)STATUS_TOPIC);

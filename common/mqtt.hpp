@@ -16,7 +16,7 @@
 
 #define MSG_TOPIC "aleksi"
 #define LED_TOPIC "aleksi/LED"
-#define TEST_TOPIC "aleksi/TEST"
+#define TEMP_TOPIC "aleksi/TEMP"
 
 #define MQTT_TOPIC_SIZE 64
 #define MQTT_MSG_SIZE (MQTT_TOPIC_SIZE) * 2
