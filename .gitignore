@@ -3,3 +3,5 @@
 **/build
 .vscode
 common/network_info.h
+ex_2/message.json
+ex_2/topics.json
