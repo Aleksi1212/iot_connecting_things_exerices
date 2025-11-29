@@ -22,3 +22,11 @@ std::vector<std::string> split_str(std::string &str, const char c)
     while (std::getline(ss, seg, c)) seg_vec.push_back(seg);
     return seg_vec;
 }
+void try_convert_str_to_float(std::string &str, float &res)
+{
+    float temp;
+    std::stringstream ss(str);
+    ss >> temp;
+
+    if (!ss.fail() && ss.eof()) res = temp;
+}

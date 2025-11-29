@@ -17,5 +17,6 @@ float adc_to_celcius(uint16_t adc_reading);
 
 std::string char_arr_to_str(char *c_arr, size_t size);
 std::vector<std::string> split_str(std::string &str, const char c);
+void try_convert_str_to_float(std::string &str, float &res);
 
 #endif

@@ -77,8 +77,8 @@ int main()
             vector<string> msg_split = split_str(msg, ';');
 
             if (msg_split[0] == "TEMP") send_core_temp(mqtt.get(), MSG_TOPIC, core_temp);
-            if (msg_split[0] == "LOW") low_temp_lim = stof(msg_split[1]);
-            if (msg_split[0] == "HIGH") high_temp_lim = stof(msg_split[1]);
+            if (msg_split[0] == "LOW") try_convert_str_to_float(msg_split[1], low_temp_lim);
+            if (msg_split[0] == "HIGH") try_convert_str_to_float(msg_split[1], high_temp_lim);
         } 
         mqtt->yield(100);
     }
