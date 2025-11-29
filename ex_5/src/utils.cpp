@@ -1,6 +1,6 @@
 #include <utils.hpp>
 
-float read_core_temp(uint16_t adc_reading)
+float adc_to_celcius(uint16_t adc_reading)
 {
     float voltage = adc_reading * ADC_REF / ADC_RESOLUTION;
     return 27.0f - (voltage - V_AT_27C) / TEMP_SLOPE;
