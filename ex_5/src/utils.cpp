@@ -30,3 +30,7 @@ void try_convert_str_to_float(std::string &str, float &res)
 
     if (!ss.fail() && ss.eof()) res = temp;
 }
+void to_upper(std::string &str)
+{
+    std::transform(str.begin(), str.end(), str.begin(), ::toupper);
+}

@@ -7,8 +7,6 @@
 #include <algorithm>
 #include <utils.hpp>
 
-using namespace std;
-
 #define BUTTON 12
 
 static queue_t button_q;
@@ -56,12 +54,14 @@ int main()
     uint8_t q_data;
     T_MQTT_payload mqtt_payload{};
 
-    while (true) {
+    while (true)
+    {
         cyw43_arch_gpio_put(CYW43_WL_GPIO_LED_PIN, (*mqtt)());
         led1.toggle(core_temp <= low_temp_lim);
         led3.toggle(core_temp >= high_temp_lim);
 
-        if (absolute_time_diff_us(start_temp_read_time, get_absolute_time()) / 1000 >= 1000) {
+        if (absolute_time_diff_us(start_temp_read_time, get_absolute_time()) / 1000 >= 1000)
+        {
             core_temp = adc_to_celcius(adc_read());
             start_temp_read_time = get_absolute_time();
             led2.toggle(!led2());
@@ -71,14 +71,21 @@ int main()
         if (queue_try_remove(&button_q, &q_data)) {
             send_core_temp(mqtt.get(), MSG_TOPIC, core_temp);
         }
-        if (mqtt->try_get_mqtt_msg(&mqtt_payload) && strcmp(mqtt_payload.topic, TEMP_TOPIC) == 0) {
-            string msg = char_arr_to_str(mqtt_payload.message, strlen(mqtt_payload.message));
-            transform(msg.begin(), msg.end(), msg.begin(), ::toupper);
-            vector<string> msg_split = split_str(msg, ';');
+        if (mqtt->try_get_mqtt_msg(&mqtt_payload) && !strcmp(mqtt_payload.topic, TEMP_TOPIC))
+        {
+            std::string payload_msg = char_arr_to_str(mqtt_payload.message, strlen(mqtt_payload.message));
+            to_upper(payload_msg);
+            std::vector<std::string> msg_parts = split_str(payload_msg, ';');
 
-            if (msg_split[0] == "TEMP") send_core_temp(mqtt.get(), MSG_TOPIC, core_temp);
-            if (msg_split[0] == "LOW") try_convert_str_to_float(msg_split[1], low_temp_lim);
-            if (msg_split[0] == "HIGH") try_convert_str_to_float(msg_split[1], high_temp_lim);
+            if (msg_parts[0] == "TEMP") {
+                send_core_temp(mqtt.get(), MSG_TOPIC, core_temp);
+            }
+            if (msg_parts[0] == "LOW") {
+                try_convert_str_to_float(msg_parts[1], low_temp_lim);
+            }
+            if (msg_parts[0] == "HIGH") {
+                try_convert_str_to_float(msg_parts[1], high_temp_lim);
+            }
         } 
         mqtt->yield(100);
     }
