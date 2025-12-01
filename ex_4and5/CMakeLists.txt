@@ -1,0 +1,80 @@
+cmake_minimum_required(VERSION 3.13)
+
+# Set the Pico SDK path (update it with your own path)
+set(PICO_SDK_PATH $ENV{PICO_SDK_PATH})
+
+# Set the Pico board
+set(PICO_BOARD pico_w)
+
+set(CMAKE_BUILD_TYPE Debug)
+
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+
+
+# Set the project name
+set(FILE_PATH "project_name.txt")
+file(READ ${FILE_PATH} PROJECT_NAME)
+
+# Include the Pico SDK. Must be before project()
+include(${PICO_SDK_PATH}/pico_sdk_init.cmake)
+
+# Set the project name
+project(${PROJECT_NAME} C CXX ASM)
+
+# Set the C/C++ standard
+set(CMAKE_C_STANDARD 23)
+set(CMAKE_CXX_STANDARD 17)
+
+# Initialize the Pico SDK
+pico_sdk_init()
+
+# file(GLOB_RECURSE SRC_FILES "src/*.cpp")
+file(GLOB MQTT_SOURCES "../lib/paho.mqtt.embedded-c/MQTTPacket/src/*.c")
+# Add the project source files
+add_executable(${PROJECT_NAME}
+  # ${SRC_FILES}
+  src/main.cpp
+  src/utils.cpp
+  ${MQTT_SOURCES}
+        # include/network_info.h
+)
+
+
+target_compile_options(${PROJECT_NAME} PRIVATE
+  -Wall
+  -Wextra
+  -Wpedantic
+)
+
+target_include_directories(${PROJECT_NAME}
+  PRIVATE
+    ${CMAKE_CURRENT_SOURCE_DIR}
+    ${CMAKE_CURRENT_SOURCE_DIR}/src
+    # ../lib/paho.mqtt.embedded-c/MQTTPacket/src
+    # ../lib/paho.mqtt.embedded-c
+)
+
+# # Link the Pico SDK libraries
+target_link_libraries(${PROJECT_NAME} PRIVATE
+    hardware_adc
+    # pico_stdlib
+    # hardware_gpio
+    # hardware_pwm
+    # pico_cyw43_arch_lwip_poll
+    # additional Pico SDK libraries
+)
+add_subdirectory(
+    ${CMAKE_CURRENT_LIST_DIR}/../common
+    ${CMAKE_CURRENT_BINARY_DIR}/common_build
+)
+
+target_link_libraries(${PROJECT_NAME} PRIVATE common)
+
+# Enable UART output (optional)
+pico_enable_stdio_uart(${PROJECT_NAME} 1)
+
+# Enable USB output (optional)
+pico_enable_stdio_usb(${PROJECT_NAME} 1)
+
+# Create map/bin/hex/uf2 files
+pico_add_extra_outputs(${PROJECT_NAME})
